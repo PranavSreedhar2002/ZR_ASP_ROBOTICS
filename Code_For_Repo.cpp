@@ -1,4 +1,4 @@
-//Added Animesh's Code - ZR_Robotics Competition
+//Added Animesh's Code - ZR_Robotics Competition - This is awesome!
 
 //This strategy involves going to precalculated spots and guaruntees finding the concentration on our side
 //Normally, should find in a couple of searches but may take longer on very rare occasions
@@ -161,7 +161,7 @@ void init(){
     //DEBUG
     /*for (int i = 0; i < 10; i++) {
      game.pos2square(spots[i], square);
-     DEBUG((“SPOT %i: %i, %i, %i”, i, square[0], square[1], square[2]));
+     DEBUG((âSPOT %i: %i, %i, %iâ, i, square[0], square[1], square[2]));
      }*/
 }
 
@@ -172,10 +172,10 @@ void loop(){
      }
      for (int i = 0; i < 10; i++) {
      game.pos2square(spots[i], square);
-     DEBUG((“SPOT %i: %i, %i, %i”, i, square[0], square[1], square[2]));
+     DEBUG((âSPOT %i: %i, %i, %iâ, i, square[0], square[1], square[2]));
      }
      }*/
-    //DEBUG((“SPOT %i, %f, %f, %f, *** %f, %f, %f”, spot, dest[0], dest[1], dest[2], spots[spot][0], spots[spot][1], spots[spot][2]));
+    //DEBUG((âSPOT %i, %f, %f, %f, *** %f, %f, %fâ, spot, dest[0], dest[1], dest[2], spots[spot][0], spots[spot][1], spots[spot][2]));
     update();
     if (step == 1) { //get analyzer
         if (game.hasAnalyzer()>0) {
@@ -199,7 +199,7 @@ void loop(){
         }
         if (velocity < 0.04 && temp) {
             concentration = game.analyzeTerrain();
-            DEBUG((“CONCENTRATION %f”, concentration));
+            DEBUG((âCONCENTRATION %fâ, concentration));
             if (concentration > 0.2) {
                 step++;
             } else if (concentration > 0) {
@@ -209,7 +209,7 @@ void loop(){
     }
     if (step == 3) { //hover around to find center
         game.pos2square(spots[spot], currSqr);
-        DEBUG((“FOUND IT AT SQR: %i, %i, %i”, currSqr[0], currSqr[1], currSqr[2]));
+        DEBUG((âFOUND IT AT SQR: %i, %i, %iâ, currSqr[0], currSqr[1], currSqr[2]));
         if (concentration > 0.7) {
             for (int i = 0; i < 3; i++) {
                 centerConcSqr[i] = currSqr[i];
@@ -238,7 +238,7 @@ void loop(){
             }
             if (velocity < 0.04 && temp) {
                 concentration = game.analyzeTerrain();
-                DEBUG((“CONCENTRATION %f”, concentration));
+                DEBUG((âCONCENTRATION %fâ, concentration));
                 if (concentration > 0.4) {
                     for (int i = 0; i < 3; i++) {
                         currSqr[i] = targSqr[i];
@@ -252,7 +252,7 @@ void loop(){
         }
     }
     if (step == 4) {
-        DEBUG((“60 concentration found”));
+        DEBUG((â60 concentration foundâ));
         if (concentration > 0.7) {
             step++;
         } else {
@@ -274,10 +274,10 @@ void loop(){
                         break;
                     }
                 }
-                DEBUG((“TEMP: %i Target : %i , %i”, temp, targSqr[0], targSqr[1]));
+                DEBUG((âTEMP: %i Target : %i , %iâ, temp, targSqr[0], targSqr[1]));
                 if (velocity < 0.04 && temp) {
                     concentration = game.analyzeTerrain();
-                    DEBUG((“CONCENTRATION %f”, concentration));
+                    DEBUG((âCONCENTRATION %fâ, concentration));
                     if (concentration > 0.8) {
                         for (int i = 0; i < 3; i++) {
                             centerConcSqr[i] = targSqr[i];
@@ -344,7 +344,7 @@ void loop(){
         }
     }
     if (step == 5) {//Begin Drilling and collecting points
-        DEBUG((“FOUND IT 100 Concentration AT SQR: %i, %i, %i”, centerConcSqr[0], centerConcSqr[1], centerConcSqr[2]));
+        DEBUG((âFOUND IT 100 Concentration AT SQR: %i, %i, %iâ, centerConcSqr[0], centerConcSqr[1], centerConcSqr[2]));
         game.square2pos(centerConcSqr, targetPos);
         targetPos[2] = myPosition[2];
         for (int i = 0; i < 3; i++) {
@@ -357,7 +357,7 @@ void loop(){
         }
     }
     /*if (step == 6) {
-     DEBUG((“STEP 6”));
+     DEBUG((âSTEP 6â));
      float h = game.getTerrainHeight(centerConcSqr);
      dest[2]=h-0.13f;
      if (h - myPosition[2] >= 0.11 && h - myPosition[2] < 0.15) {
@@ -368,13 +368,13 @@ void loop(){
      }*/
     if (step == 6) {
         //drill = true;
-        DEBUG((“Drilling”));
+        DEBUG((âDrillingâ));
         if (!drill) {
             step++;
         }
     }
     if (step == 7) {
-        DEBUG((“GOT 100s”));
+        DEBUG((âGOT 100sâ));
     }
     if (!game.getDrillEnabled()) {
         zero[2] = 0;
@@ -411,10 +411,10 @@ void loop(){
             if (currSamples >= 2) {
                 drill = false;
             }
-            DEBUG((“currSamples: %i”, currSamples));
+            DEBUG((âcurrSamples: %iâ, currSamples));
         }
         if (currSamples >= 2) {
-            DEBUG((“DONE”));
+            DEBUG((âDONEâ));
             game.stopDrill();
             drill = false;
             currSamples=0;
@@ -425,7 +425,7 @@ void loop(){
     scale(myVelocity,.26f);
     mathVecSubtract(vecBet, vecBet, myVelocity, 3);
     scale(vecBet,.2f);
-    //DEBUG((“%f, %f, %f”, vecBet[0], vecBet[1], vecBet[2]));
+    //DEBUG((â%f, %f, %fâ, vecBet[0], vecBet[1], vecBet[2]));
     api.setVelocityTarget(vecBet);
     
 }
